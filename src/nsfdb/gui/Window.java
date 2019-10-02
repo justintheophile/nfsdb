@@ -15,16 +15,16 @@ import javax.swing.KeyStroke;
 
 import com.alee.extended.label.WebStyledLabel;
 import com.alee.laf.WebLookAndFeel;
-
+/**
+ * Boundary entity for interaction with system. responsible for constructing
+ * window, menu bar, and split panes
+ */
 public class Window extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("Arial", Font.BOLD, 12);
 	NSFMenuBar menuBar;
 
-	/**
-	 * Boundary entity for interaction with system. responsible for constructing
-	 * window, menu bar, and split panes
-	 */
 	public Window() {
 		WebLookAndFeel.install();
 		setTitle("NSF Database Terminal");
@@ -38,9 +38,8 @@ public class Window extends JFrame {
 
 
 	public JSplitPane constructContentArea() {
-		JPanel familyData = new JPanel(); // replace with specialized class
+		JPanel familyData = new FamilyTree().getPanel();
 		JPanel speciesData = new JPanel(); // replace with specialized class
-
 		JSplitPane mainSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, familyData, speciesData);
 		return mainSplitPane;
 	}
