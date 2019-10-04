@@ -28,7 +28,14 @@ public class FamilyTree {
 	}
 
 	private void createNodes(DefaultMutableTreeNode top) {
-		addNode(addNode(top, nodeFromString("Books for Java Programmers")), nodeFromString("new node"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+		addNode(addNode(top, nodeFromString("Parent")), nodeFromString("Child"));
+
+		
 	}
 
 	private DefaultMutableTreeNode addNode(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
