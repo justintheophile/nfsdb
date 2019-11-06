@@ -14,9 +14,6 @@ public class DatabaseController {
 			+ "user=NsfDbDev;password=nDsBf1;" + "databaseName=NSFResearch;";
 
 	public void getData(FamilyTree tree) {
-		// Create a variable for the connection string.
-//	 String connectionUrl = "jdbc:sqlserver://;servername=cssql\\sqldata;"
-//                                           + "user=NsfDbDev;password=nDsBf1;" + "databaseName=NSFResearch;";
 
 		// Declare the JDBC objects.
 		Connection con = null;
