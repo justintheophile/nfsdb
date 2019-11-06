@@ -57,7 +57,9 @@ public class DatabaseController {
 
 		// Handle any errors that may have occurred.
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println("Could not connect to database. stopping...");
+			System.exit(1);
 		}
 
 		finally {
