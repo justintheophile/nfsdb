@@ -13,8 +13,9 @@ import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import nsfdb.gui.details.DetailedView;
 import nsfdb.gui.nodes.MonkeyNode;
-import nsfdb.sql.DatabaseController;
+import nsfdb.sql.SQLDatabaseController;
 
 /**
  * Class used to construct JTree forming species data
@@ -28,7 +29,7 @@ public class FamilyTree {
 	private ArrayList<MonkeyNode> monkeys = new ArrayList<MonkeyNode>();
 
 	public FamilyTree() {
-		DatabaseController database = new DatabaseController();
+		SQLDatabaseController database = new SQLDatabaseController();
 		database.getData(this);
 		tree = new JTree(monkeys.get(0));
 		

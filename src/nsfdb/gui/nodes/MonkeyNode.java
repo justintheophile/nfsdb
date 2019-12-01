@@ -14,17 +14,24 @@ public class MonkeyNode extends DefaultMutableTreeNode {
 	private FamilyTree tree;
 
 	public MonkeyNode(FamilyTree tree, String[] data) {
-		super(data[1]);
+		super(data == null ? "empty" : data[1]);
 		this.tree = tree;
-		setSequenceID(data[0]);
-		setSubjectCode(data[1]);
-		setGender(data[2]);
-		setBirthYear(data[3]);
-		setDeathYear(data[4]);
-		setMotherID(data[5]);
-		setGeneration(data[6]);
-		setFamilyID(data[7]);
-		setSiblingNum(data[8]);
+		if (data != null) {
+			setSequenceID(data[0]);
+			setSubjectCode(data[1]);
+			setGender(data[2]);
+			setBirthYear(data[3]);
+			setDeathYear(data[4]);
+			setMotherID(data[5]);
+			setGeneration(data[6]);
+			setFamilyID(data[7]);
+			setSiblingNum(data[8]);
+		}
+
+	}
+
+	public MonkeyNode(FamilyTree tree) {
+		this(tree, null);
 
 	}
 
