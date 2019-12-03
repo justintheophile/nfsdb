@@ -13,9 +13,9 @@ import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import nsfdb.data.SQLDatabaseController;
 import nsfdb.gui.details.DetailedView;
 import nsfdb.gui.nodes.MonkeyNode;
-import nsfdb.sql.SQLDatabaseController;
 
 /**
  * Class used to construct JTree forming species data
@@ -40,7 +40,7 @@ public class FamilyTree {
 		        if(selRow != -1) {
 		        	MonkeyNode monkey = (MonkeyNode) selPath.getLastPathComponent();
 		            if(e.getClickCount() == 1) {
-		            	 DetailedView.selectedMonkey = monkey;
+		            	 GUIController.detailedView.setSelectedMonkey(monkey);
 		            }
 		            else if(e.getClickCount() == 2) {
 		               

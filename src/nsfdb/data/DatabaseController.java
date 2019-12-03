@@ -1,4 +1,4 @@
-package nsfdb.sql;
+package nsfdb.data;
 
 import nsfdb.gui.FamilyTree;
 

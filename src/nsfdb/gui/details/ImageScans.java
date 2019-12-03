@@ -1,6 +1,7 @@
 package nsfdb.gui.details;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -16,28 +17,30 @@ public class ImageScans extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<BufferedImage> images;
 	private int currentImage;
-	JLabel indicator ;
+	JLabel indicator;
+
 	public ImageScans() {
 		setLayout(new BorderLayout());
 
 		JPanel controls = new JPanel();
+		controls.setFocusable(false);
+		controls.setBackground(Color.gray);
 		JButton nextImage = new JButton(">");
 		JButton previousImage = new JButton("<");
-		indicator = new JLabel ("0/0");
+		indicator = new JLabel("0/0");
 		controls.add(previousImage, BorderLayout.WEST);
 		controls.add(indicator, BorderLayout.CENTER);
 
 		controls.add(nextImage, BorderLayout.EAST);
 
 		add(controls, BorderLayout.SOUTH);
-		
-		
+
 		nextImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nextImage();
 			}
 		});
-		
+
 		previousImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				previousImage();
@@ -48,15 +51,21 @@ public class ImageScans extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		currentImage %= images.size();
+		if (images != null) {
+			currentImage %= images.size();
 
-		
-		if (images.size() > 0 && currentImage < images.size()) {
-			indicator.setText((currentImage+1) + "/" + images.size());
-			int w = 300;
-			int h = 300;
-			
-			g2d.drawImage(images.get(currentImage), getWidth()/2 - w/2, 0, w, h, null);
+			if (images.size() > 0 && currentImage < images.size()) {
+				BufferedImage cImage = images.get(currentImage);
+
+				indicator.setText((currentImage + 1) + "/" + images.size());
+				
+				int w = cImage.getWidth();
+				int h = cImage.getHeight();
+
+				
+				
+				g2d.drawImage(cImage, getWidth() / 2 - w / 2, 0, w, h, null);
+			}
 		}
 	}
 
@@ -75,4 +84,12 @@ public class ImageScans extends JPanel {
 		currentImage--;
 		repaint();
 	}
+	
+	
+	
+}
+
+
+class ImageGallery{
+	
 }

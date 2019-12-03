@@ -10,19 +10,23 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import nsfdb.gui.ImageLoader;
+import nsfdb.data.FileImageLoader;
+import nsfdb.data.ImageLoader;
+import nsfdb.data.SQLImageLoader;
 import nsfdb.gui.nodes.MonkeyNode;
 
 public class DetailedView extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	public static MonkeyNode selectedMonkey;
+	private  MonkeyNode selectedMonkey;
 	
 	JSplitPane splitpane;
 	ImageScans imageScans;
-	
+	ImageLoader loader;
 	public DetailedView() {
+		loader = new SQLImageLoader();
+		
 		imageScans = new ImageScans();
-		imageScans.setImages(ImageLoader.loadFolder("src/images"));
+		imageScans.setImages(loader.loadImages("src/images"));
 		setLayout(new BorderLayout());
 
 		splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
@@ -43,6 +47,11 @@ public class DetailedView extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		repaint();
+	}
+	
+	public void setSelectedMonkey(MonkeyNode monkey) {
+		selectedMonkey = monkey;
 		repaint();
 	}
 

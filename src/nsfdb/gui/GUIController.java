@@ -20,8 +20,8 @@ public class GUIController extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final Font font = new Font("Courier", Font.BOLD, 12);
 	private  NSFMenuBar menuBar;
-	public FamilyTree familyTree = new FamilyTree();
-	public DetailedView detailedView = new DetailedView();
+	public static FamilyTree familyTree = new FamilyTree();
+	public static DetailedView detailedView = new DetailedView();
 	public GUIController() {
 		WebLookAndFeel.install();
 		setTitle("NSF Database Terminal");

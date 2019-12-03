@@ -1,4 +1,4 @@
-package nsfdb.gui;
+package nsfdb.data;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class ImageLoader {
+public class FileImageLoader extends ImageLoader {
 
 	private static final String[] EXTENSIONS = new String[] { "gif", "png", "bmp" };
 	private static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -24,9 +24,12 @@ public class ImageLoader {
 		}
 	};
 
-	public static ArrayList<BufferedImage> loadFolder(String path) {
+	/**
+	 * @param 0: path (Stiring)
+	 */
+	public ArrayList<BufferedImage> loadImages(Object... param) {
 
-		File dir = new File(path);
+		File dir = new File((String) param[0]);
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 
 		if (dir.isDirectory()) { // make sure it's a directory

@@ -2,8 +2,8 @@ package nsfdb.main;
 
 import javax.swing.SwingUtilities;
 
+import nsfdb.data.SQLDatabaseController;
 import nsfdb.gui.GUIController;
-import nsfdb.sql.SQLDatabaseController;
 
 public class Main {
 
