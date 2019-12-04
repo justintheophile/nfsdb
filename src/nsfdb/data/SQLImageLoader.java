@@ -24,7 +24,7 @@ public class SQLImageLoader extends ImageLoader {
 	public ArrayList<BufferedImage> loadImages(Object... param) {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 
-		ResultSet rs = SQLDatabaseController.queryDatabase(Queries.address, Queries.images);
+		ResultSet rs = SQLDatabase.queryDatabase(Queries.address, Queries.images);
 
 		try {
 			while (rs.next()) {

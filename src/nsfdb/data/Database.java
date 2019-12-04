@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import nsfdb.gui.views.FamilyTreeView;
 
-public abstract class DatabaseController {
+public abstract class Database {
 	protected String serverAddress = "";
 	
 	public void setSeverAddress(String address) {

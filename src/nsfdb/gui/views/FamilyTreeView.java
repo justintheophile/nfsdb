@@ -6,15 +6,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import nsfdb.data.SQLDatabaseController;
-import nsfdb.gui.ViewManager;
+import nsfdb.data.Database;
+import nsfdb.data.ExcelDatabase;
+import nsfdb.data.Queries;
+import nsfdb.data.SQLDatabase;
 import nsfdb.gui.nodes.MonkeyNode;
 
 /**
@@ -76,10 +77,15 @@ public class FamilyTreeView extends View {
 	}
 
 	public static FamilyTreeView generate() {
-		SQLDatabaseController database = new SQLDatabaseController();
+		Database database = null;
+		if(Queries.databaseSrc == Queries.Source.FILE) {
+			 database = new ExcelDatabase();
+		}else if(Queries.databaseSrc == Queries.Source.SQL){
+			 database = new SQLDatabase();
+		}
 		FamilyTreeView tree = new FamilyTreeView();
-		ArrayList<MonkeyNode> monkeys = database.getData(tree);
-		tree.init(monkeys);
+		database.getData(tree);
+		tree.init(tree.monkeys);
 		return tree;
 	}
 

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JSplitPane;
 
+import nsfdb.data.FileImageLoader;
 import nsfdb.gui.views.FamilyTreeView;
 import nsfdb.gui.views.ImageScansView;
 import nsfdb.gui.views.MonkeyDataView;
@@ -23,9 +24,11 @@ public class SplitPaneViewManager extends ViewManager{
 		detailSplitPane.setDividerLocation(300);
 		mainSplitPane.setDividerLocation(300);
 
-		familyTree = new View();//FamilyTreeView.generate();
+		familyTree = FamilyTreeView.generate();
 		monkeyData = new View(); //MonkeyDataView.generate(); 
+		
 		imageScans = new ImageScansView();
+		((ImageScansView)imageScans).setImages(new FileImageLoader().loadImages("./src/images"));
 		
 		detailSplitPane.setTopComponent(monkeyData);
 		detailSplitPane.setBottomComponent(imageScans);
@@ -54,6 +57,14 @@ public class SplitPaneViewManager extends ViewManager{
 			// error
 		}
 		construct();
+	}
+
+
+
+	@Override
+	public void construct() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

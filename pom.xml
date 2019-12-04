@@ -31,5 +31,10 @@
 			<artifactId>mssql-jdbc</artifactId>
 			<version>7.4.1.jre8</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.ucanaccess</groupId>
+			<artifactId>ucanaccess</artifactId>
+			<version>4.0.4</version>
+		</dependency>
 	</dependencies>
 </project>

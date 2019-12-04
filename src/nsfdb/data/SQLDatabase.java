@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import nsfdb.gui.nodes.MonkeyNode;
 import nsfdb.gui.views.FamilyTreeView;
 
-public class SQLDatabaseController extends DatabaseController {
+public class SQLDatabase extends Database {
 
-	public SQLDatabaseController() {
+	public SQLDatabase() {
 
 	}
 
@@ -74,12 +74,16 @@ public class SQLDatabaseController extends DatabaseController {
 				columns = meta.getColumnCount();
 
 				while (rs.next()) {
-					String fullData = "";
+					String fullData = rs.getString("SequenceID") + "," 
+							+  rs.getString("SubjectCode") + ","
+							+  rs.getString("Gender") + ","
+							+  rs.getString("BirthYear") + ","
+							+  rs.getString("DeathYear") + ","
+							+  rs.getString("MotherID") + ","
+							+  rs.getString("Generation") + ","
+							+  rs.getString("FamilyID") + ","
+							+  rs.getString("SiblingNum") + ",";
 
-					for (int i = 1; i <= columns; i++) {
-						String columnData = rs.getString(i);
-						fullData += columnData + (i == columns ? "" : ",");
-					}
 					MonkeyNode monkey = new MonkeyNode(tree, fullData.split(","));
 					monkeys.add(monkey);
 				}
