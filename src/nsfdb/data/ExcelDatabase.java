@@ -80,8 +80,6 @@ public class ExcelDatabase extends Database{
 									+  rs.getString("FamilyID") + ","
 									+  rs.getString("SiblingNum") + ",";
 
-					
-					System.out.println(fullData);
 					MonkeyNode monkey = new MonkeyNode(tree, fullData.split(","));
 					tree.addMonkey(monkey);
 					monkeys.add(monkey);
