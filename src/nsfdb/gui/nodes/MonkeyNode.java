@@ -2,7 +2,7 @@ package nsfdb.gui.nodes;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import nsfdb.gui.FamilyTree;
+import nsfdb.gui.views.FamilyTreeView;
 
 public class MonkeyNode extends DefaultMutableTreeNode {
 	private static final long serialVersionUID = 1L;
@@ -11,9 +11,9 @@ public class MonkeyNode extends DefaultMutableTreeNode {
 			generation = "", familyID = "", siblingNum = "";
 
 	private MonkeyNode parent;
-	private FamilyTree tree;
+	private FamilyTreeView tree;
 
-	public MonkeyNode(FamilyTree tree, String[] data) {
+	public MonkeyNode(FamilyTreeView tree, String[] data) {
 		super(data == null ? "empty" : data[1]);
 		this.tree = tree;
 		if (data != null) {
@@ -30,7 +30,7 @@ public class MonkeyNode extends DefaultMutableTreeNode {
 
 	}
 
-	public MonkeyNode(FamilyTree tree) {
+	public MonkeyNode(FamilyTreeView tree) {
 		this(tree, null);
 
 	}

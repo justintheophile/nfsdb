@@ -1,4 +1,4 @@
-package nsfdb.gui.details;
+package nsfdb.gui.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

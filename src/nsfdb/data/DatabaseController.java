@@ -1,6 +1,8 @@
 package nsfdb.data;
 
-import nsfdb.gui.FamilyTree;
+import java.util.ArrayList;
+
+import nsfdb.gui.views.FamilyTreeView;
 
 public abstract class DatabaseController {
 	protected String serverAddress = "";
@@ -8,5 +10,5 @@ public abstract class DatabaseController {
 	public void setSeverAddress(String address) {
 		this.serverAddress = address;
 	}
-	public abstract void getData(FamilyTree tree);
+	public abstract ArrayList<?> getData(Object... param);
 }

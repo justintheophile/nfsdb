@@ -1,4 +1,4 @@
-package nsfdb.gui.details;
+package nsfdb.gui.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,7 +23,7 @@ public class DetailedView extends JPanel implements ActionListener {
 	ImageScans imageScans;
 	ImageLoader loader;
 	public DetailedView() {
-		loader = new SQLImageLoader();
+		loader = new FileImageLoader();
 		
 		imageScans = new ImageScans();
 		imageScans.setImages(loader.loadImages("src/images"));

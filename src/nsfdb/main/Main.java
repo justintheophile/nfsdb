@@ -2,8 +2,7 @@ package nsfdb.main;
 
 import javax.swing.SwingUtilities;
 
-import nsfdb.data.SQLDatabaseController;
-import nsfdb.gui.GUIController;
+import nsfdb.gui.Window;
 
 public class Main {
 
@@ -11,7 +10,7 @@ public class Main {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GUIController window = new GUIController();
+				Window window = new Window();
 			}
 		});
 
