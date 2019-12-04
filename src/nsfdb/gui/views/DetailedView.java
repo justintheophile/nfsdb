@@ -15,17 +15,17 @@ import nsfdb.data.ImageLoader;
 import nsfdb.data.SQLImageLoader;
 import nsfdb.gui.nodes.MonkeyNode;
 
-public class DetailedView extends JPanel implements ActionListener {
+public class DetailedView extends View implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private  MonkeyNode selectedMonkey;
 	
 	JSplitPane splitpane;
-	ImageScans imageScans;
+	ImageScansView imageScans;
 	ImageLoader loader;
 	public DetailedView() {
 		loader = new FileImageLoader();
 		
-		imageScans = new ImageScans();
+		imageScans = new ImageScansView();
 		imageScans.setImages(loader.loadImages("src/images"));
 		setLayout(new BorderLayout());
 

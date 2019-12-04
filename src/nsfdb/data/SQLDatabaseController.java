@@ -14,10 +14,10 @@ import nsfdb.gui.views.FamilyTreeView;
 public class SQLDatabaseController extends DatabaseController {
 
 	public SQLDatabaseController() {
-		
+
 	}
 
-	public ResultSet queryDatabase(String serverAddress, String query) {
+	public static ResultSet queryDatabase(String serverAddress, String query) {
 		ResultSet rs = null;
 		Connection con = null;
 		Statement stmt = null;
@@ -60,29 +60,32 @@ public class SQLDatabaseController extends DatabaseController {
 
 	public ArrayList<MonkeyNode> getData(Object... params) {
 		// Declare the JDBC objects.
-		
-		ResultSet rs = queryDatabase(Queries.address, Queries.FAMILY1);
+
+		ResultSet rs = queryDatabase(Queries.address, Queries.family1);
 		ArrayList<MonkeyNode> monkeys = new ArrayList<MonkeyNode>();
-		FamilyTreeView tree = (FamilyTreeView) params[0];
 
-		ResultSetMetaData meta = null;
-		int columns;
-		try {
-			meta = rs.getMetaData();
-			columns = meta.getColumnCount();		
+		if (rs != null) {
+			FamilyTreeView tree = (FamilyTreeView) params[0];
 
-			while (rs.next()) {
-				String fullData = "";
+			ResultSetMetaData meta = null;
+			int columns;
+			try {
+				meta = rs.getMetaData();
+				columns = meta.getColumnCount();
 
-				for (int i = 1; i <= columns; i++) {
-					String columnData = rs.getString(i);
-					fullData += columnData + (i == columns ? "" : ",");
+				while (rs.next()) {
+					String fullData = "";
+
+					for (int i = 1; i <= columns; i++) {
+						String columnData = rs.getString(i);
+						fullData += columnData + (i == columns ? "" : ",");
+					}
+					MonkeyNode monkey = new MonkeyNode(tree, fullData.split(","));
+					monkeys.add(monkey);
 				}
-				MonkeyNode monkey = new MonkeyNode(tree, fullData.split(","));
-				monkeys.add(monkey);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 		return monkeys;

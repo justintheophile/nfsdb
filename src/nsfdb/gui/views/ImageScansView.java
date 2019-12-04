@@ -13,14 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ImageScans extends JPanel {
+public class ImageScansView extends View {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<BufferedImage> images;
 	private int currentImage;
 	JLabel indicator;
 
-	public ImageScans() {
-		setLayout(new BorderLayout());
+	public ImageScansView() {
 
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);

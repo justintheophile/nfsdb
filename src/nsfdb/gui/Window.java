@@ -13,7 +13,7 @@ public class Window extends JFrame {
 	public Window() {
 		WebLookAndFeel.install();
 
-		ViewManager viewManager = new ViewManager();
+		ViewManager viewManager = new SplitPaneViewManager();
 		
 		WebLookAndFeel.install();
 		setTitle("NSF Database Terminal");
@@ -22,7 +22,7 @@ public class Window extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(new MenuBar(), BorderLayout.NORTH);
-		add(viewManager.constructContentArea(), BorderLayout.CENTER);
+		add(viewManager, BorderLayout.CENTER);
 		repaint();
 	}
 }

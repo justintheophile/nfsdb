@@ -23,15 +23,13 @@ import nsfdb.gui.nodes.MonkeyNode;
  * @author justin
  *
  */
-public class FamilyTreeView extends JPanel {
+public class FamilyTreeView extends View {
 	private static final long serialVersionUID = 1L;
 
 	private JTree tree;
 	private ArrayList<MonkeyNode> monkeys = new ArrayList<MonkeyNode>();
 
-	public FamilyTreeView() {
-		super(new BorderLayout());
-	}
+
 
 	public void init(ArrayList<MonkeyNode> monkeys) {
 		this.monkeys = monkeys;
@@ -45,7 +43,7 @@ public class FamilyTreeView extends JPanel {
 					if (selRow != -1) {
 						MonkeyNode monkey = (MonkeyNode) selPath.getLastPathComponent();
 						if (e.getClickCount() == 1) {
-							ViewManager.detailedView.setSelectedMonkey(monkey);
+							//ViewManager.detailedView.setSelectedMonkey(monkey);
 						} else if (e.getClickCount() == 2) {
 
 						}
@@ -77,7 +75,7 @@ public class FamilyTreeView extends JPanel {
 
 	}
 
-	public static FamilyTreeView generate(String query) {
+	public static FamilyTreeView generate() {
 		SQLDatabaseController database = new SQLDatabaseController();
 		FamilyTreeView tree = new FamilyTreeView();
 		ArrayList<MonkeyNode> monkeys = database.getData(tree);
