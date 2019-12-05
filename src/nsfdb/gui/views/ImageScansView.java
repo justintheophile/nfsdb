@@ -13,14 +13,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nsfdb.gui.nodes.MonkeyNode;
+
 public class ImageScansView extends View {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<BufferedImage> images;
 	private int currentImage;
 	JLabel indicator;
-
-	public ImageScansView() {
-
+	MonkeyNode monkey;
+	public ImageScansView(MonkeyNode monkey) {
+		this.monkey = monkey;
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);
 		controls.setBackground(Color.gray);

@@ -27,9 +27,9 @@ public class SplitPaneViewManager extends ViewManager{
 		familyTree = FamilyTreeView.generate();
 		monkeyData = new View(); //MonkeyDataView.generate(); 
 		
-		imageScans = new ImageScansView();
+		imageScans = new ImageScansView(null);
 		((ImageScansView)imageScans).setImages(new FileImageLoader().loadImages("./src/images"));
-		
+
 		detailSplitPane.setTopComponent(monkeyData);
 		detailSplitPane.setBottomComponent(imageScans);
 		mainSplitPane.setLeftComponent(familyTree);
