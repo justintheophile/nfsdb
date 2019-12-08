@@ -2,18 +2,15 @@ package nsfdb.data;
 
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
-public class SQLImageLoader extends ImageLoader {
+import nsfdb.gui.nodes.MonkeyNode;
+
+public class SQLImageLoader extends ScanImageLoader {
 	Connection connection = null;
 	Statement statement = null;
 
@@ -21,8 +18,10 @@ public class SQLImageLoader extends ImageLoader {
 
 	}
 
-	public ArrayList<BufferedImage> loadImages(Object... param) {
+	public ArrayList<BufferedImage> loadImages(MonkeyNode monkey, String scanID) {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+
+		String query = "SELECT ImageBlob FROM ImageSeries WHERE ScanID="+scanID+";";
 
 		ResultSet rs = SQLDatabase.queryDatabase(Queries.address, Queries.images);
 
@@ -38,4 +37,5 @@ public class SQLImageLoader extends ImageLoader {
 		return images;
 	}
 
+	
 }

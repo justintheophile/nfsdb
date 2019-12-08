@@ -13,6 +13,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nsfdb.data.FileImageLoader;
+import nsfdb.data.ScanImageLoader;
+import nsfdb.data.Queries;
+import nsfdb.data.SQLImageLoader;
 import nsfdb.gui.nodes.MonkeyNode;
 
 public class ImageScansView extends View {
@@ -21,7 +25,7 @@ public class ImageScansView extends View {
 	private int currentImage;
 	JLabel indicator;
 	MonkeyNode monkey;
-	public ImageScansView(MonkeyNode monkey) {
+	private ImageScansView(MonkeyNode monkey) {
 		this.monkey = monkey;
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);
@@ -86,8 +90,18 @@ public class ImageScansView extends View {
 		repaint();
 	}
 	
-	public static ImageScansView generate() {
+	public static ImageScansView generate(MonkeyNode monkey) {
+		ImageScansView scansView = new ImageScansView(monkey);
+		ScanImageLoader imageLoader = null;
+		if(Queries.databaseSrc == Queries.Source.FILE) {
+			imageLoader = new FileImageLoader();
+		}else {
+			imageLoader = new SQLImageLoader();
+		}
 		
+		scansView.setImages(imageLoader.loadImages(monkey, ""));
+		
+		return scansView;
 	}
 	
 }

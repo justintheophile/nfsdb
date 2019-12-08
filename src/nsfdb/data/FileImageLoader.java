@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class FileImageLoader extends ImageLoader {
+import nsfdb.gui.nodes.MonkeyNode;
+
+public class FileImageLoader extends ScanImageLoader {
 
 	private static final String[] EXTENSIONS = new String[] { "gif", "png", "bmp" };
 	private static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -24,12 +26,10 @@ public class FileImageLoader extends ImageLoader {
 		}
 	};
 
-	/**
-	 * @param 0: path (Stiring)
-	 */
-	public ArrayList<BufferedImage> loadImages(Object... param) {
 
-		File dir = new File((String) param[0]);
+	public ArrayList<BufferedImage> loadImages(MonkeyNode monkey, String scanID) {
+
+		File dir = new File(Queries.file_images);
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 
 		if (dir.isDirectory()) { // make sure it's a directory

@@ -24,11 +24,10 @@ public class SplitPaneViewManager extends ViewManager{
 		detailSplitPane.setDividerLocation(300);
 		mainSplitPane.setDividerLocation(300);
 
-		familyTree = FamilyTreeView.generate();
+		setView(FamilyTreeView.generate());
 		monkeyData = new View(); //MonkeyDataView.generate(); 
 		
-		imageScans = new ImageScansView(null);
-		((ImageScansView)imageScans).setImages(new FileImageLoader().loadImages("./src/images"));
+		setView(ImageScansView.generate(null));
 
 		detailSplitPane.setTopComponent(monkeyData);
 		detailSplitPane.setBottomComponent(imageScans);

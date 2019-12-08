@@ -17,7 +17,7 @@ public class Window extends JFrame {
 		
 		WebLookAndFeel.install();
 		setTitle("NSF Database Terminal");
-		setSize(1600, 900);
+		setSize(1440, 900);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
