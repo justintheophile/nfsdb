@@ -86,7 +86,9 @@ public class ImageScansView extends View {
 		repaint();
 	}
 	
-	
+	public static ImageScansView generate() {
+		
+	}
 	
 }
 

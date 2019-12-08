@@ -25,7 +25,7 @@ public class DetailedView extends View implements ActionListener {
 	public DetailedView() {
 		loader = new FileImageLoader();
 		
-		imageScans = new ImageScansView();
+		imageScans = new ImageScansView(null);
 		imageScans.setImages(loader.loadImages("src/images"));
 		setLayout(new BorderLayout());
 
