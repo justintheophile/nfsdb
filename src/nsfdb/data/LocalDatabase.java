@@ -1,6 +1,7 @@
 package nsfdb.data;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,20 +12,32 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import net.ucanaccess.complex.Attachment;
 import nsfdb.data.containers.Monkey;
 import nsfdb.data.containers.Scan;
 import nsfdb.gui.views.FamilyTreeView;
 
-public class SQLDatabase extends Database {
-
-	public SQLDatabase() {
-
-	}
+public class LocalDatabase extends Database {
+	private static ResultSet rs = null;
+	private static Connection con = null;
+	private static Statement stmt = null;
 
 	public static ResultSet queryDatabase(String serverAddress, String query) {
-		ResultSet rs = null;
-		Connection con = null;
-		Statement stmt = null;
+		if (rs != null)
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+		if (stmt != null)
+			try {
+				stmt.close();
+			} catch (Exception e) {
+			}
+		if (con != null)
+			try {
+				con.close();
+			} catch (Exception e) {
+			}
 		try {
 			// Establish the connection.
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -42,32 +55,16 @@ public class SQLDatabase extends Database {
 			e.printStackTrace();
 		}
 
-		finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-			if (stmt != null)
-				try {
-					stmt.close();
-				} catch (Exception e) {
-				}
-			if (con != null)
-				try {
-					con.close();
-				} catch (Exception e) {
-				}
-		}
 		return rs;
 	}
 
 	public ArrayList<Monkey> getFamilyData(FamilyTreeView tree, String familyID) {
-		ResultSet rs = queryDatabase(Queries.sql_monkeys_url, Queries.getFamilyQuery(familyID));
+		// Declare the JDBC objects.
+
+		ResultSet rs = queryDatabase(Queries.local_monkeys_url, Queries.getFamilyQuery(familyID));
 		ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
 
 		if (rs != null) {
-
 			ResultSetMetaData meta = null;
 			int columns;
 			try {
@@ -75,17 +72,13 @@ public class SQLDatabase extends Database {
 				columns = meta.getColumnCount();
 
 				while (rs.next()) {
-					String fullData = rs.getString("SequenceID") + "," 
-							+  rs.getString("SubjectCode") + ","
-							+  rs.getString("Gender") + ","
-							+  rs.getString("BirthYear") + ","
-							+  rs.getString("DeathYear") + ","
-							+  rs.getString("MotherID") + ","
-							+  rs.getString("Generation") + ","
-							+  rs.getString("FamilyID") + ","
-							+  rs.getString("SiblingNum") + ",";
+					String fullData = rs.getString("SequenceID") + "," + rs.getString("SubjectCode") + ","
+							+ rs.getString("Gender") + "," + rs.getString("BirthYear") + "," + rs.getString("DeathYear")
+							+ "," + rs.getString("MotherID") + "," + rs.getString("Generation") + ","
+							+ rs.getString("FamilyID") + "," + rs.getString("SiblingNum") + ",";
 
 					Monkey monkey = new Monkey(tree, fullData.split(","));
+					tree.addMonkey(monkey);
 					monkeys.add(monkey);
 				}
 			} catch (SQLException e) {
@@ -127,10 +120,14 @@ public class SQLDatabase extends Database {
 	@Override
 	public ArrayList<BufferedImage> getScanImages(String scanID) {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		ResultSet rs = LocalDatabase.queryDatabase(Queries.sql_monkeys_url, Queries.getScanImageQuery(scanID));
+		ResultSet rs = LocalDatabase.queryDatabase(Queries.local_monkeys_url, Queries.getScanImageQuery(scanID));
 		try {
-			while (rs.next()) {
-				BufferedImage im = ImageIO.read(rs.getBinaryStream(1));
+			rs.next();
+
+			Attachment[] atts = (Attachment[]) rs.getObject("ImageBlob");
+			for (Attachment att : atts) {
+				ByteArrayInputStream bis = new ByteArrayInputStream(att.getData());
+				BufferedImage im = ImageIO.read(bis);
 				images.add(im);
 			}
 		} catch (Exception e) {
@@ -140,5 +137,4 @@ public class SQLDatabase extends Database {
 		return images;
 	}
 
-	
 }

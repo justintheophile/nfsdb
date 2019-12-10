@@ -13,20 +13,20 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nsfdb.data.FileImageLoader;
-import nsfdb.data.ScanImageLoader;
+import nsfdb.data.Database;
+import nsfdb.data.LocalDatabase;
 import nsfdb.data.Queries;
-import nsfdb.data.SQLImageLoader;
-import nsfdb.gui.nodes.MonkeyNode;
+import nsfdb.data.SQLDatabase;
+import nsfdb.data.SourceController;
+import nsfdb.data.containers.Monkey;
 
-public class ImageScansView extends View {
+public class ScanImageView extends View {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<BufferedImage> images;
 	private int currentImage;
 	JLabel indicator;
-	MonkeyNode monkey;
-	private ImageScansView(MonkeyNode monkey) {
-		this.monkey = monkey;
+	
+	public ScanImageView() {
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);
 		controls.setBackground(Color.gray);
@@ -90,16 +90,11 @@ public class ImageScansView extends View {
 		repaint();
 	}
 	
-	public static ImageScansView generate(MonkeyNode monkey) {
-		ImageScansView scansView = new ImageScansView(monkey);
-		ScanImageLoader imageLoader = null;
-		if(Queries.databaseSrc == Queries.Source.FILE) {
-			imageLoader = new FileImageLoader();
-		}else {
-			imageLoader = new SQLImageLoader();
-		}
+	public static ScanImageView generate(String scanID) {
+		ScanImageView scansView = new ScanImageView();
+		Database database = SourceController.getNewDataSource();
 		
-		scansView.setImages(imageLoader.loadImages(monkey, ""));
+		scansView.setImages(database.getScanImages(scanID));
 		
 		return scansView;
 	}

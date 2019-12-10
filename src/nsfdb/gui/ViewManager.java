@@ -14,5 +14,7 @@ public abstract class ViewManager extends JPanel{
 
 
 	public abstract void construct();
-	public abstract void setView(View v);
+	public  void setView(View v) {
+		v.parent = this;
+	}
 }

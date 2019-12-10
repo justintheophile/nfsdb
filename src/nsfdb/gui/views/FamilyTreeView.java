@@ -13,10 +13,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import nsfdb.data.Database;
-import nsfdb.data.ExcelDatabase;
+import nsfdb.data.LocalDatabase;
 import nsfdb.data.Queries;
 import nsfdb.data.SQLDatabase;
-import nsfdb.gui.nodes.MonkeyNode;
+import nsfdb.data.SourceController;
+import nsfdb.data.containers.Monkey;
 
 /**
  * Class used to construct JTree forming species data
@@ -28,11 +29,9 @@ public class FamilyTreeView extends View {
 	private static final long serialVersionUID = 1L;
 
 	private JTree tree;
-	private ArrayList<MonkeyNode> monkeys = new ArrayList<MonkeyNode>();
+	private ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
 
-
-
-	public void init(ArrayList<MonkeyNode> monkeys) {
+	public void init(ArrayList<Monkey> monkeys) {
 		this.monkeys = monkeys;
 		if (monkeys.size() > 0) {
 			tree = new JTree(monkeys.get(0));
@@ -42,9 +41,14 @@ public class FamilyTreeView extends View {
 					int selRow = tree.getRowForLocation(e.getX(), e.getY());
 					TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
 					if (selRow != -1) {
-						MonkeyNode monkey = (MonkeyNode) selPath.getLastPathComponent();
+						Monkey monkey = (Monkey) selPath.getLastPathComponent();
 						if (e.getClickCount() == 1) {
-							//ViewManager.detailedView.setSelectedMonkey(monkey);
+							if (parent != null) {
+								parent.setView(new ScanImageView());
+								parent.setView(MonkeyDataView.generate(monkey));
+								parent.setView(ScansView.generate(monkey));
+
+							}
 						} else if (e.getClickCount() == 2) {
 
 						}
@@ -58,11 +62,11 @@ public class FamilyTreeView extends View {
 		}
 	}
 
-	public MonkeyNode findMonkey(int id) {
+	public Monkey findMonkey(int id) {
 		return monkeys.get(id);
 	}
 
-	public void addMonkey(MonkeyNode monkey) {
+	public void addMonkey(Monkey monkey) {
 		monkeys.add(monkey);
 	}
 
@@ -77,14 +81,10 @@ public class FamilyTreeView extends View {
 	}
 
 	public static FamilyTreeView generate() {
-		Database database = null;
-		if(Queries.databaseSrc == Queries.Source.FILE) {
-			 database = new ExcelDatabase();
-		}else if(Queries.databaseSrc == Queries.Source.SQL){
-			 database = new SQLDatabase();
-		}
+		Database database = SourceController.getNewDataSource();
+
 		FamilyTreeView tree = new FamilyTreeView();
-		database.getData(tree);
+		database.getFamilyData(tree, "0");
 		tree.init(tree.monkeys);
 		return tree;
 	}
