@@ -107,7 +107,7 @@ public class ScanImageView extends View {
 		super.cleanup();
 		panel.stop();
 	}
-}
+} 
 
 class ImagePanel extends GraphicsPanel {
 	private static final long serialVersionUID = 1L;
@@ -116,7 +116,7 @@ class ImagePanel extends GraphicsPanel {
 	public ImagePanel(ScanImageView parent) {
 		super(60);
 		this.parent = parent;
-		drawGrid = false;
+		drawGrid = false; 
 		
 	}
 
