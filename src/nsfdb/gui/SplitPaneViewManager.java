@@ -26,7 +26,6 @@ public class SplitPaneViewManager extends ViewManager{
 		mainSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		scanSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
-		detailSplitPane.setEnabled(false);
 
 		mainSplitPane.setDividerLocation(500);
 

@@ -25,6 +25,7 @@ public class InteractiveFamilyTreeView extends View {
 	Thread thread;
 	InteractivePanel panel;
 	FamilyTreeListView familyTree;
+
 	private InteractiveFamilyTreeView(FamilyTreeListView familyTree) {
 		this.monkeys = familyTree.getMonkeys();
 		this.familyTree = familyTree;
@@ -75,11 +76,12 @@ class InteractivePanel extends GraphicsPanel {
 	public void init() {
 
 	}
-/**
- * Construct the family tree structure.
- * 
- * (NOTE: child data must be sorted by generation in database)
- */
+
+	/**
+	 * Construct the family tree structure.
+	 * 
+	 * (NOTE: child data must be sorted by generation in database)
+	 */
 	public void build() {
 		int generations = 0;
 		// finding number of generations
@@ -142,8 +144,8 @@ class InteractivePanel extends GraphicsPanel {
 
 			@Override
 			public int compare(Monkey monkey1, Monkey monkey2) {
-				
-				if(!monkey1.getGeneration().equals(monkey2.getGeneration())) {
+
+				if (!monkey1.getGeneration().equals(monkey2.getGeneration())) {
 					return 0;
 				}
 				int index1 = findLastChildIndex(monkey1);
@@ -160,10 +162,13 @@ class InteractivePanel extends GraphicsPanel {
 
 		System.out.println(parent.monkeys.toString());
 
-		/*
-		 * Algorithm: 1. loop through last generation 2. Monkeys that are siblings have
-		 * a space of 2 between them, monkeys that are not siblings have a space of 5
-		 * between them 3. for every subsequent generation, center the parent on group
+		/*-
+		 * Algorithm: 
+		 * 1. loop through last generation 
+		 * 2. Monkeys that are siblings have
+		 * a space of 2 between them, monkeys that are not siblings have a larger
+		 * between them 
+		 * 3. for every subsequent generation, center the parent on group
 		 * of children
 		 */
 		float cursorX = 0;
@@ -188,7 +193,7 @@ class InteractivePanel extends GraphicsPanel {
 				} else if (lastParent.equals(monkey.getMotherID())) {
 					cursorX += 6;
 				} else {
-					cursorX += 9;
+					cursorX += 7;
 					lastParent = monkey.getMotherID();
 				}
 				widget = new MonkeyWidget(this, monkey, cursorX * Camera.GRIDSIZE, cursorY * Camera.GRIDSIZE);

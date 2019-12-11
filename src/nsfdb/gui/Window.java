@@ -15,7 +15,6 @@ public class Window extends JFrame {
 
 		ViewManager viewManager = new SplitPaneViewManager();
 		
-		WebLookAndFeel.install();
 		setTitle("NSF Database Terminal");
 		setSize(1440, 900);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

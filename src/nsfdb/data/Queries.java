@@ -4,7 +4,7 @@ public class Queries {
 	public static final String sql_monkeys_url = "jdbc:sqlserver://;servername=cssql\\sqldata;"
 			+ "user=NsfDbDev;password=nDsBf1;" + "databaseName=NSFResearch;";
 
-	public static final String local_monkeys_url = "jdbc:ucanaccess://./src/local/local_database.accdb";//.\\src\\local\\local_database.accdb";
+	public static final String local_monkeys_url = "jdbc:ucanaccess://./src/local/local_database.accdb";
 
 	private static final String select_family = "SELECT * FROM Family22Subjects_1 WHERE FamilyID=&v0 ORDER BY SequenceId ASC";
 	private static final String select_images = "SELECT ImageBlob FROM ImageSeries WHERE ScanID=&v0";

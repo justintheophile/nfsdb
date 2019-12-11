@@ -28,7 +28,7 @@ public class ScanImageView extends View {
 	public ScanImageView() {
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);
-		controls.setBackground(Color.gray);
+		controls.setBackground(new Color(207,216,220));
 		JButton nextImage = new JButton(">");
 		JButton previousImage = new JButton("<");
 		indicator = new JLabel("0/0");

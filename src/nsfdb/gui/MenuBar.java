@@ -16,8 +16,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 
 
 	public MenuBar() {
-		WebStyledLabel titleLabel = new WebStyledLabel("   {NSFDB Terminal:b}");
-		add(titleLabel);
+		//WebStyledLabel titleLabel = new WebStyledLabel("   {NSFDB Terminal:b}");
+		//add(titleLabel);
 
 		/* File Menu */
 		JMenu fileMenu = new JMenu("File");
