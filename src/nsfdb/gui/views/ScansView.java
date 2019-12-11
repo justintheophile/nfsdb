@@ -51,7 +51,6 @@ public class ScansView extends View {
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example
 	            // print first column value from selected row
-	            System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
 	            parent.setView(ScanImageView.generate(table.getValueAt(table.getSelectedRow(), 0).toString()));
 	        }
 	    });

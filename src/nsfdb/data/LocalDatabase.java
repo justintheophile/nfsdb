@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import net.ucanaccess.complex.Attachment;
 import nsfdb.data.containers.Monkey;
 import nsfdb.data.containers.Scan;
-import nsfdb.gui.views.FamilyTreeView;
+import nsfdb.gui.views.FamilyTreeListView;
 
 public class LocalDatabase extends Database {
 	private static ResultSet rs = null;
@@ -58,7 +58,7 @@ public class LocalDatabase extends Database {
 		return rs;
 	}
 
-	public ArrayList<Monkey> getFamilyData(FamilyTreeView tree, String familyID) {
+	public ArrayList<Monkey> getFamilyData(FamilyTreeListView tree, String familyID) {
 		// Declare the JDBC objects.
 
 		ResultSet rs = queryDatabase(Queries.local_monkeys_url, Queries.getFamilyQuery(familyID));

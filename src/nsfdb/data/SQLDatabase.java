@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 import nsfdb.data.containers.Monkey;
 import nsfdb.data.containers.Scan;
-import nsfdb.gui.views.FamilyTreeView;
+import nsfdb.gui.views.FamilyTreeListView;
 
 public class SQLDatabase extends Database {
 
@@ -62,7 +62,7 @@ public class SQLDatabase extends Database {
 		return rs;
 	}
 
-	public ArrayList<Monkey> getFamilyData(FamilyTreeView tree, String familyID) {
+	public ArrayList<Monkey> getFamilyData(FamilyTreeListView tree, String familyID) {
 		ResultSet rs = queryDatabase(Queries.sql_monkeys_url, Queries.getFamilyQuery(familyID));
 		ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
 

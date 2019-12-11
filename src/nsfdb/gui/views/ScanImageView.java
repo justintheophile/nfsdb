@@ -13,19 +13,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jinteractive.main.GraphicsPanel;
+
 import nsfdb.data.Database;
-import nsfdb.data.LocalDatabase;
-import nsfdb.data.Queries;
-import nsfdb.data.SQLDatabase;
 import nsfdb.data.SourceController;
-import nsfdb.data.containers.Monkey;
 
 public class ScanImageView extends View {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<BufferedImage> images;
 	private int currentImage;
 	JLabel indicator;
-	
+	ImagePanel panel;
+
 	public ScanImageView() {
 		JPanel controls = new JPanel();
 		controls.setFocusable(false);
@@ -51,57 +50,95 @@ public class ScanImageView extends View {
 				previousImage();
 			}
 		});
+
+		panel = new ImagePanel(this);
+		add(panel, BorderLayout.CENTER);
+		Runnable run = new Runnable() {
+			public void run() {
+				panel.gameloop();
+			}
+		};
+
+		new Thread(run).start();
+
 	}
 
-	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D) g;
-		if (images != null) {
-			currentImage %= images.size();
-
-			if (images.size() > 0 && currentImage < images.size()) {
-				BufferedImage cImage = images.get(currentImage);
-
-				indicator.setText((currentImage + 1) + "/" + images.size());
-				
-				int w = cImage.getWidth();
-				int h = cImage.getHeight();
-
-				
-				
-				g2d.drawImage(cImage, getWidth() / 2 - w / 2, 0, w, h, null);
-			}
+	public void tick() {
+		repaint();
+		currentImage %= images.size();
+		if(images != null) {
+			indicator.setText((currentImage + 1) + "/" + images.size());
 		}
 	}
 
 	public void setImages(ArrayList<BufferedImage> images) {
 		this.images = images;
 		currentImage = 0;
-		repaint();
+		tick();
 	}
 
 	public void nextImage() {
 		currentImage++;
-		repaint();
+		tick();
 	}
 
 	public void previousImage() {
 		currentImage--;
-		repaint();
+		tick();
 	}
-	
+
+	public BufferedImage getImage() {
+		if (images != null) {
+			return images.get(currentImage);
+		}
+		return null;
+	}
+
 	public static ScanImageView generate(String scanID) {
 		ScanImageView scansView = new ScanImageView();
 		Database database = SourceController.getNewDataSource();
-		
+
 		scansView.setImages(database.getScanImages(scanID));
-		
+
 		return scansView;
 	}
-	
+
+	public void cleanup() {
+		super.cleanup();
+		panel.stop();
+	}
 }
 
+class ImagePanel extends GraphicsPanel {
+	private static final long serialVersionUID = 1L;
+	ScanImageView parent;
 
-class ImageGallery{
-	
+	public ImagePanel(ScanImageView parent) {
+		super(60);
+		this.parent = parent;
+		drawGrid = false;
+		
+	}
+
+	public void draw(Graphics2D g2d) {
+		if (parent.getImage() != null) {
+			g2d.drawImage(parent.getImage(), 0, 0, null);
+		}
+	}
+
+	@Override
+	public void drawGui(Graphics2D arg0) {
+
+	}
+
+	@Override
+	public void init() {
+
+	}
+
+	@Override
+	public void update(float arg0) {
+
+	}
+
 }

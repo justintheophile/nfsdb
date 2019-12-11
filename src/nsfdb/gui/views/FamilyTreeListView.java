@@ -18,6 +18,7 @@ import nsfdb.data.Queries;
 import nsfdb.data.SQLDatabase;
 import nsfdb.data.SourceController;
 import nsfdb.data.containers.Monkey;
+import nsfdb.gui.views.interactive.InteractiveFamilyTreeView;
 
 /**
  * Class used to construct JTree forming species data
@@ -25,7 +26,7 @@ import nsfdb.data.containers.Monkey;
  * @author justin
  *
  */
-public class FamilyTreeView extends View {
+public class FamilyTreeListView extends View {
 	private static final long serialVersionUID = 1L;
 
 	private JTree tree;
@@ -44,9 +45,7 @@ public class FamilyTreeView extends View {
 						Monkey monkey = (Monkey) selPath.getLastPathComponent();
 						if (e.getClickCount() == 1) {
 							if (parent != null) {
-								parent.setView(new ScanImageView());
-								parent.setView(MonkeyDataView.generate(monkey));
-								parent.setView(ScansView.generate(monkey));
+								load(monkey);
 
 							}
 						} else if (e.getClickCount() == 2) {
@@ -60,6 +59,12 @@ public class FamilyTreeView extends View {
 			JScrollPane treeView = new JScrollPane(tree);
 			add(treeView, BorderLayout.CENTER);
 		}
+	}
+	
+	public void load(Monkey monkey) {
+		parent.setView(new ScanImageView());
+		parent.setView(MonkeyDataView.generate(monkey));
+		parent.setView(ScansView.generate(monkey));
 	}
 
 	public Monkey findMonkey(int id) {
@@ -80,13 +85,36 @@ public class FamilyTreeView extends View {
 
 	}
 
-	public static FamilyTreeView generate() {
+	public static FamilyTreeListView generate() {
 		Database database = SourceController.getNewDataSource();
 
-		FamilyTreeView tree = new FamilyTreeView();
+		FamilyTreeListView tree = new FamilyTreeListView();
 		database.getFamilyData(tree, "0");
 		tree.init(tree.monkeys);
 		return tree;
 	}
 
+	public JTree getTree() {
+		return tree;
+	}
+
+	public ArrayList<Monkey> getMonkeys() {
+		return monkeys;
+	}
+
+	private InteractiveFamilyTreeView map;
+
+	public InteractiveFamilyTreeView getInteractiveMap() {
+		if (map == null) {
+			map = InteractiveFamilyTreeView.generate(this);
+			map.build();
+		}
+		return map;
+	}
+
+	@Override
+	public void cleanup() {
+		super.cleanup();
+		map.cleanup();
+	}
 }
