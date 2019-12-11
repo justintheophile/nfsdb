@@ -2,18 +2,13 @@ package nsfdb.main;
 
 import javax.swing.SwingUtilities;
 
-import nsfdb.data.SQLDatabaseController;
-import nsfdb.gui.GUIController;
+import nsfdb.gui.Window;
 
 public class Main {
 
 	public static void main(String[] args) {
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				GUIController window = new GUIController();
-			}
-		});
+		Window window = new Window();
+		
 
 	}
 
