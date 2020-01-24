@@ -13,12 +13,12 @@ import nsfdb.gui.views.View;
 
 public class SplitPaneViewManager extends ViewManager {
 	private static final long serialVersionUID = 1L;
-	private View familyTree;
-	private View monkeyData;
-	private View imageScans;
-	private View scans;
-	private JSplitPane detailSplitPane, mainSplitPane, scanSplitPane;
-	private JTabbedPane tabbedPane;
+	View familyTree;
+	View monkeyData;
+	View imageScans;
+	View scans;
+	JSplitPane detailSplitPane, mainSplitPane, scanSplitPane;
+	JTabbedPane tabbedPane;
 
 	public SplitPaneViewManager() {
 		setLayout(new BorderLayout());
