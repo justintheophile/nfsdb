@@ -116,7 +116,7 @@ class ImagePanel extends GraphicsPanel {
 	public ImagePanel(ScanImageView parent) {
 		super(60);
 		this.parent = parent;
-		drawGrid = false; 
+		//drawGrid = false; 
 		
 	}
 

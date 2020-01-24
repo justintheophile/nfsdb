@@ -20,7 +20,7 @@ public class Window extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		add(new MenuBar(), BorderLayout.NORTH);
+	//	add(new MenuBar(), BorderLayout.NORTH);
 		add(viewManager, BorderLayout.CENTER);
 		repaint();
 	}
